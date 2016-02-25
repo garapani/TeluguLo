@@ -1,1 +1,23 @@
 /* Empty. Add your own CSS if you like */
+.item
+{
+  padding: 2px;
+}
+.item-text-wrap
+{
+  height: 100px;
+}
+
+.textArea
+{
+  width:95%;
+  height: 95%;
+  resize: none;
+}
+
+.outputtextArea
+{
+  width:100%;
+  height: 100%;
+  resize: none;
+}
