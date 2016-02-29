@@ -17,6 +17,7 @@
 
 <!-- cordova script (this will be a 404 during development) -->
 <!-- <script src="lib/ngCordova/dist/ng-cordova.min.js"></script> -->
+<script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
 <script src="cordova.js"></script>
 <script type="text/javascript" src="js/Padma.js"></script>
 <script type="text/javascript" src="js/Shared.js"></script>
@@ -29,7 +30,8 @@
 <script type="text/javascript" src="js/Transformer.js"></script>
 <script type="text/javascript" src="js/RTSTransformer.js"></script>
 <script src="js/trie.js"></script>
-<script src="js/brie.js"></script>
+<script src="js/trieFactory.js"></script>
+<script src="js/focusIf.min.js"></script>
 <script src="js/app.js"></script>
 <meta http-equiv="Content-Security-Policy"/>
 <allow-navigation href="http://*/*">
@@ -46,19 +48,34 @@
         <div class="item item-divider">
           ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి
         </div>
-        <div class="item item-text-wrap">
-          <textarea class="textArea" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="Enter input here"></textarea>
+        <div id="inputDiv" class="item item-text-wrap">
+          <textarea class="textArea"  type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="Enter input here"></textarea>
         </div>
+      </div>
+      <div class="card">
+        <ul id="prefferedWordsList">
+          <li id="prefferedWordsItem" data-ng-repeat="word in PrefferedWords" >
+            <h4 id="prefferedText" ng-click="addPrefferedWord(word)">{{word.telugu}}</h4>
+          </li>
+        </ul>
       </div>
       <div class="card">
         <div class="item item-divider">
           తెలుగు లొకి మార్చబడినది
         </div>
-        <div class="item item-text-wrap">
+        <div id="outputDiv" class="item item-text-wrap">
           <!-- <textarea class="textArea" style="margin:10px;" ng-model="outputText" placeholder="output here"></textarea> -->
           <textarea class="outputtextArea" ng-model="outputText" readonly>
           </textarea>
         </div>
+      </div>
+      <div class="card">
+        <!-- <button ng-click="copyText()" ng-disabled="ShareDisabled">copy</button> -->
+        <!-- <button ng-click="shareContent()" ng-disabled="ShareDisabled">share</button> -->
+        <a class="button button-icon icon ion-ios-copy-outline" ng-click="copyText()" ng-disabled="ShareDisabled"></a>
+        <a class="button button-icon icon ion-android-share-alt" ng-click="shareContent()" ng-disabled="ShareDisabled"></a>
+        <a class="button button-icon icon ion-social-whatsapp-outline" ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled"></a>
+        <!-- <button  ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled">whatsapp</button> -->
       </div>
     </ion-content>
   </ion-pane>

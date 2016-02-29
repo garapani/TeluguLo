@@ -2,11 +2,11 @@
 <widget id="com.thevillagesoftware.telugulo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>TeluguLo</name>
   <description>
-        Tool helps in easily converting english to telugu language.
-    </description>
+    Tool helps in easily converting english to telugu language.
+  </description>
   <author email="venkatachalapathi.g@outlook.com" href="http://thevillagesoftware.com/">
-      Venkatachalapathi Garapani
-    </author>
+    Venkatachalapathi Garapani
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
@@ -18,6 +18,10 @@
   <preference name="SplashScreenDelay" value="3000"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+  <feature name="Keyboard">
+    <param name="ios-package" value="IonicKeyboard" onload="true" />
   </feature>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>

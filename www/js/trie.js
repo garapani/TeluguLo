@@ -1,294 +1,93 @@
-/**
- * @constructor
- */
-function Trie(alphabet) {
-  this.alphabet = alphabet;
+'use strict';
 
-  this.base = [1];
-  this.check = [0];
-  this.tail = [];
-  this.pos = 1;
-}
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-/**
- * Returns true if `word` is in the trie.
- *
- * @param {string} word
- * @return {boolean}
- */
-Trie.prototype.contains = function (word) {
-  var chars = word.split(''),
-      n = 1,
-      m = null;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-  for (var i = 0; i < chars.length; i += 1) {
-    m = this.getBase(n) + this.getCharCode(chars[i]);
+var Node = function Node(value, parent) {
+  if (value === undefined) value = '';
 
-    if (this.getCheck(m) !== n) {
-      return false;
-    }
+  _classCallCheck(this, Node);
 
-    if (this.getBase(m) < 0) {
-      break;
-    }
-    n = m;
-  }
-
-  return chars[i] === '#' || this.tailEquals(-this.getBase(m), chars, i + 1);
+  this.name = value;
+  this.children = [];
+  this.parent = parent;
 };
 
-/**
- * Returns the tail string starting at `pos`
- * @param {number} pos
- * @return {Array.<string>}
- */
-Trie.prototype.getTailString = function (pos) {
-  var result = [];
+var Trie = (function () {
+  function Trie() {
+    _classCallCheck(this, Trie);
 
-  for (var i = pos - 1; i < this.tail.length; i += 1) {
-    result.push(this.tail[i]);
-
-    if (this.tail[i] === '#') {
-      break;
-    }
-  }
-  return result;
-};
-
-/**
- * Compares the string in the tail at `start` with the
- * string in `chars` starting at `pos`.
- * @param {number} start
- * @param {Array.<string>} chars
- * @param {number} pos
- * @return {boolean}
- */
-Trie.prototype.tailEquals = function (start, chars, pos) {
-  for (var i = start - 1, k = 0; i < this.tail.length; i += 1, k += 1) {
-    if (this.tail[i] !== chars[pos + k]) {
-      return false;
-    }
-
-    if (this.tail[i] === '#') {
-      break;
-    }
-  }
-  return true;
-};
-
-Trie.prototype.x_check = function (list) {
-  var q = 1;
-
-  while (true) {
-    var found = false;
-
-    for (var c = 0; c < list.length; c += 1) {
-      if (this.getCheck(q + list[c])) {
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      break;
-    }
-    q += 1;
-  }
-  return q;
-};
-
-/**
- * @param {Array.<string>} str
- * @param {number} pos
- * @param {number} start
- */
-Trie.prototype.writeTail = function (str, pos, start) {
-  for (var i = start + 1, k = 0; i < str.length; i += 1, k += 1) {
-    this.tail[pos - 1 + k] = str[i];
-
-    if (str[i] === '#') {
-      break;
-    }
+    this.root = new Node();
   }
 
-  if (pos + k + 1 > this.pos) {
-    this.pos = pos + k + 1;
-  }
-};
-
-Trie.prototype.findArcs = function (n) {
-  var result = [];
-
-  for (var c in this.alphabet) {
-    if (this.getCheck(this.getBase(n) + this.getCharCode(c)) === n) {
-      result.push(this.getCharCode(c));
-    }
-  }
-  return result;
-};
-
-Trie.prototype.relocateBase = function (n, m, chars, i) {
-  var temp_node1 = n,
-      temp_node2 = null,
-      listA = this.findArcs(n),
-      listB = this.findArcs(this.getCheck(m)),
-
-      node = listA.length + 1 < listB.length ? n : this.getCheck(m),
-      list = listA.length + 1 < listB.length ? listA : listB;
-
-  var temp_base = this.getBase(node);
-
-  this.setBase(node, this.x_check(list));
-
-  for (var j = 0; j < list.length; j += 1) {
-    temp_node1 = temp_base + list[j];
-    temp_node2 = this.getBase(node) + list[j];
-
-    this.setBase(temp_node2, this.getBase(temp_node1));
-    this.setCheck(temp_node2, node);
-
-    if (this.getBase(temp_node1) > 0) {
-      var w = 1;
-
-      for (; w < this.check.length; w += 1) {
-        if (this.getCheck(this.getBase(temp_node1) + w) === temp_node1) {
-          this.setCheck(this.getBase(temp_node1) + w, temp_node2);
+  _createClass(Trie, [{
+    key: 'add',
+    value: function add(value) {
+      var parent = arguments.length <= 1 || arguments[1] === undefined || typeof arguments[1] == 'undefined' ? this.root : arguments[1];
+      var _loop = function (i, len) {
+        if (!parent.children) parent.children = [];
+        var node = null;
+        console.log(parent.children);
+        if(parent.children.length > 0) {
+           node = parent.children.find(function (child) {
+             console.log(child);
+              return child.name[i] === value.word[i];
+          });
         }
+        if (!node) {
+          node = new Node(value.word.slice(0, i + 1), parent.name);
+          parent.children.push(node);
+        }
+        parent = node;
+      };
 
+      for (var i = 0, len = value.word.length; i < len; i++) {
+        _loop(i, len);
       }
 
+      return parent;
     }
+  }, {
+    key: 'find',
+    value: function find(value) {
+      var parent = arguments.length <= 1 || arguments[1] === undefined || typeof arguments[1] == 'undefined'? this.root : arguments[1];
+      var _loop2 = function (i, len) {
+        console.log(parent.children);
+        parent = parent.children.find(function (child) {
+          console.log(child);
+          return child.name[i] === value[i];
+        });
 
-  }
+        if (!parent) return {
+          v: null
+        };
+      };
 
-  if(temp_node1 !== n ) {
-        temp_node2 = n;
-  }
+      for (var i = 0, len = value.length; i < len; i++) {
+        var _ret2 = _loop2(i, len);
 
-  this.setBase(temp_node1, 0);
-  this.setCheck(temp_node1, 0);
-
-  var temp_node = this.getBase(temp_node2) + this.getCharCode(chars[i]);
-  this.setBase(temp_node, -this.pos);
-  this.setCheck(temp_node, temp_node2);
-  this.writeTail(chars, this.pos, i);
-};
-
-Trie.prototype.insert = function (word) {
-  var chars = word.split(''),
-      n = 1,
-      m = null;
-
-  for (var i = 0; i < chars.length; i += 1) {
-    m = this.getBase(n) + this.getCharCode(chars[i]);
-
-    if (this.getCheck(m) !== n) {
-      if (this.getCheck(m) !== 0) {
-        this.relocateBase(n, m, chars, i);
-      } else {
-        this.setBase(m, -this.pos);
-        this.setCheck(m, n);
-        this.writeTail(chars, this.pos, i);
+        if (typeof _ret2 === 'object') return _ret2.v;
       }
-      return;
+
+      return parent;
     }
+  }, {
+    key: 'findWords',
+    value: function findWords(value) {
+      var parent = arguments.length <= 1 || arguments[1] === undefined || typeof arguments[1] == 'undefined'? this.root : arguments[1];
+      var top = this.find(value, parent);
+      if (!top) return [];
 
-    if (this.getBase(m) < 0) {
-      break;
+      var words = [];
+
+      top.children.forEach(function getWords(node) {
+        if(typeof node.ranking != 'undefined') words.push(node);
+        node.children.forEach(getWords);
+      });
+      return words;
     }
+  }]);
 
-    n = m;
-  }
-
-  if (chars[i] === '#' || this.tailEquals(-this.getBase(m), chars, i + 1)) {
-    return;
-  }
-
-  if (this.getBase(m) !== 0) {
-    this.insertTail(m, -this.getBase(m), chars, i + 1);
-  }
-};
-
-Trie.prototype.getBase = function (pos) {
-  return this.base[pos - 1] || 0;
-};
-
-Trie.prototype.getCheck = function (pos) {
-  return this.check[pos - 1] || 0;
-};
-
-Trie.prototype.setBase = function (pos, value) {
-  this.base[pos - 1] = value;
-};
-
-Trie.prototype.setCheck = function (pos, value) {
-  this.check[pos - 1] = value;
-};
-
-Trie.prototype.getCharCode = function (c) {
-  if (!this.alphabet.hasOwnProperty(c)) {
-    throw new Error('Character "' + c + '" is not in the alphabet.');
-  }
-  return this.alphabet[c];
-};
-
-Trie.prototype.insertTail = function (n, tailPos, chars, i) {
-  var tempBase = -this.getBase(n);
-
-  for (var j = tailPos - 1, k = 0; j < this.tail.length; j += 1, k += 1) {
-    var tailChar = this.getCharCode(this.tail[j]),
-        wordChar = this.getCharCode(chars[i + k]);
-
-    if (tailChar === wordChar) {
-      this.setBase(n, this.x_check([tailChar]));
-      this.setCheck(this.getBase(n) + tailChar, n);
-      n = this.getBase(n) + tailChar;
-    } else {
-      this.setBase(n, this.x_check([tailChar, wordChar]));
-
-      var q = this.getBase(n) + tailChar;
-      this.setBase(q, -tempBase);
-      this.setCheck(q, n);
-      this.writeTail(this.tail, tempBase, j);
-
-      var q = this.getBase(n) + wordChar;
-      this.setBase(q, -this.pos);
-      this.setCheck(q, n);
-      this.writeTail(chars, this.pos, ((i + j > chars.length) ? i + k : i + j));
-      break;
-    }
-
-    if (this.tail[j] === '#') {
-      break;
-    }
-  }
-};
-
-Trie.prototype.remove = function (word) {
-  var chars = word.split(''),
-      n = 1,
-      m = null;
-
-  for (var i = 0; i < chars.length; i += 1) {
-    m = this.getBase(n) + this.getCharCode(chars[i]);
-
-    if (this.getBase(m) < 0) {
-      break;
-    }
-    n = m;
-  }
-
-  if (chars[i] === '#' || this.tailEquals(-this.getBase(m), chars, i + 1)) {
-    this.setBase(m, 0);
-    this.setCheck(m, 0);
-  }
-};
-
-Trie.prototype.toString = function () {
-  return JSON.stringify({
-    base: this.base,
-    check: this.check,
-    tail: this.tail,
-    pos: this.pos
-  }, null, 2);
-};
+  return Trie;
+})();
