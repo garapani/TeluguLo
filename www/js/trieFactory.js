@@ -1,18 +1,18 @@
-angular.module('teluguLoApp.services', [])
-.factory('trieFactory',function() {
+angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
+.factory('trieFactory',function(trieTree) {
   var service = {};
-  var trie = new Trie();
+  //var trie = new Trie();
   service.addWord = function(wordToAdd)
   {
     var item = {word:wordToAdd,ranking:0};
-    var temp = trie.add(item);
+    var temp = trieTree.add(item);
     temp.ranking = temp.ranking + 1;
   };
 
   service.findWord = function(searchWord)
   {
     console.log("searching for " + searchWord.trim());
-    var nodes = trie.findWords(searchWord.trim());
+    var nodes = trieTree.findWords(searchWord.trim());
     return nodes;
   };
 
@@ -25,7 +25,7 @@ angular.module('teluguLoApp.services', [])
     ];
 
     for (var node in data) {
-      var tempNode = trie.add(data[node]);
+      var tempNode = trieTree.add(data[node]);
       tempNode.ranking = 1;
       console.log(tempNode);
     }
