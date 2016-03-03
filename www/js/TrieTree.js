@@ -1,46 +1,55 @@
 angular.module('teluguLoApp.DS', [])
 .factory('trieTree',function() {
 	var services = {};
-	var createNode = function(value, parentNode) {
-		var node = {
-			name : value,
-			children : [],
-			parent : parentNode,
-		};
-		return node;
-	}
-	var root= createNode(0, null);
+	var Node = function Node(value, parent) {
+		if (value === undefined) value = '';
+		this.name = value;
+		this.children = [];
+		this.parent = parent;
+	};
+
+	var root = new Node();
 	services.add = function(value)
 	{
 		var parent = root;
-		for (var i = 0, len = value.word.length; i < len; i++) {
+		var _loop = function (i, len) {
 			if (!parent.children) parent.children = [];
 			var node = null;
-			console.log(parent.children);
+			var k = 0;
 			if(parent.children.length > 0) {
-				node = parent.children.find(function (child) {
-					console.log(child);
-					return child.name[i] === value.word[i];
-				});
+				for(k = 0; k< parent.children.length; k++) {
+					if(parent.children[k].name[i] === value.word[i]) {
+						node = parent.children[k];
+						break;
+					}
+				}
 			}
+
 			if (!node) {
-				node = createNode(value.word.slice(0, i + 1), parent.name);
+				node = new Node(value.word.slice(0, i + 1), parent.name);
 				parent.children.push(node);
 			}
 			parent = node;
+		};
+
+		for (var i = 0, len = value.word.length; i < len; i++) {
+			_loop(i, len);
 		}
+
 		return parent;
 	};
 
 	services.find = function(value) {
 		var parent = root;
 		var _loop2 = function (i, len) {
-			console.log(parent.children);
-			parent = parent.children.find(function (child) {
-				console.log(child);
-				return child.name[i] === value[i];
-			});
-
+			var node = null;
+			var k = 0;
+			for(; k< parent.children.length; k++) {
+				if(parent.children[k].name[i] === value[i]) {
+					parent = parent.children[k];
+					break;
+				}
+			}
 			if (!parent) return {
 				v: null
 			};
@@ -57,7 +66,7 @@ angular.module('teluguLoApp.DS', [])
 
 	services.findWords = function(value)
 	{
-		var parent = arguments.length <= 1 || arguments[1] === undefined || typeof arguments[1] == 'undefined'? this.root : arguments[1];
+		var parent = root;
 		var top = this.find(value, parent);
 		if (!top) return [];
 
@@ -68,6 +77,6 @@ angular.module('teluguLoApp.DS', [])
 			node.children.forEach(getWords);
 		});
 		return words;
-	};	
+	};
 	return services;
 });
