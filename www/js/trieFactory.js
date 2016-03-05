@@ -17,18 +17,19 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
   var serialize = function(jsonString) {
     $cordovaFile.checkFile(cordova.file.dataDirectory, "wordsDB.txt")
     .then(function (success) {
-      console.log(success);
-    }, function (error) {
-      console.log(error);
+    },
+    function (error) {
       $cordovaFile.createFile(cordova.file.dataDirectory, "wordsDB.txt",false)
       .then(function (success) {
-        console.log(success);
         $cordovaFile.writeFile(cordova.file.dataDirectory, "wordsDB.txt", jsonString, true)
         .then(function (success) {
           $cordovaFile.readAsText(cordova.file.dataDirectory, "wordsDB.txt")
           .then(function (success) {
-            console.log(JSON.parse(success));
-            console.log(success);
+            var words = JSON.parse(success);
+            for (var word in words) {
+              var tempNode = trieTree.add(words[word]);
+              tempNode.ranking = words[word].ranking;
+            }
           }, function (error) {
             console.log(error);
           });
@@ -40,6 +41,7 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
       });
     });
   };
+
   var divider = '#';
   var deserialize = function() {
     $cordovaFile.checkFile(cordova.file.dataDirectory, "wordsDB.txt")
@@ -47,8 +49,11 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
       console.log(success);
       $cordovaFile.readAsText(cordova.file.dataDirectory, "wordsDB.txt")
       .then(function (success) {
-        console.log(JSON.parse(success));
-        console.log(success);
+        var words = JSON.parse(success);
+        for (var word in words) {
+          var tempNode = trieTree.add(words[word]);
+          tempNode.ranking = words[word].ranking;
+        }
       }, function (error) {
         console.log(error);
       });
@@ -59,18 +64,12 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
 
   service.initialization = function() {
     var data = [
-      {word:"venkaT",ranking:0},
-      {word:"vamSee",ranking:0},
-      {word:"venki",ranking:0},
+      {word:"venkaT",ranking:1},
+      {word:"vamSee",ranking:1},
+      {word:"venki",ranking:1},
     ];
-    // console.log(JSON.stringify(data));
      serialize(JSON.stringify(data));
      deserialize();
-    for (var node in data) {
-      var tempNode = trieTree.add(data[node]);
-      tempNode.ranking = 1;
-      console.log(tempNode);
-    }
   };
   return service;
 });

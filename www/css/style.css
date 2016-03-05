@@ -8,12 +8,26 @@
   height: 100px;
 }
 
+#headerBar
+{
+  box-shadow: 1px 1px 5px #888888;
+}
 .textArea
 {
   width:95%;
   height: 95%;
   resize: none;
   background-color: #e6f2ff;
+}
+
+#mainpane
+{
+    width: 100%;
+}
+
+#content
+{
+  width: 100%;
 }
 
 .outputtextArea
@@ -23,16 +37,28 @@
   resize: none;
 }
 
-.item-divider
-{
-  background-color: #66b3ff;
+ion-view {
+  background-image: url('../img/background.jpg');
+  background-size:cover;
+  /*background-color: #423D50;*/
 }
 
+.item-divider
+{
+  background-color: #387ef5;
+  box-shadow: 1px 1px 5px #888888;
+}
+#prefferredWordsCard
+{
+  background-color: rgba(255, 255, 255, .0);
+}
 #inputDiv, #outputDiv
 {
   background-color: #e6f2ff;
 }
-
+.card{
+  opacity: 0.8;
+}
 #prefferedWordsList
 {
   margin: 0;
@@ -52,9 +78,44 @@
   margin-right: 5px;
   text-decoration: none;
   border-radius: 4px 4px 0 0;
+  color:#fff;
 }
 
 .button-icon
 {
- margin-left: 20px;
+  margin-left: 20px;
+}
+
+table {
+  margin: 0 auto 0.3em auto;
+  border-collapse: collapse;
+  width: 90%;
+  display: table;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+tr#division {
+  border-top: 3px solid #666 !important;
+}
+
+td {
+  padding: 0 0.2em;
+  text-align: center;
+  empty-cells: hide;
+  background: #fff;
+  border: 1px solid #999;
+  width: 30px;
+}
+
+samp {
+  display: block;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-bottom: 0.5px;
+  color: #066;
 }

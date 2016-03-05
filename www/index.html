@@ -40,45 +40,8 @@
 </allow-navigation>
 </head>
 <body ng-app="teluguLoApp">
-  <ion-pane>
-    <ion-header-bar class="bar-stable bar bar-header bar-positive">
-      <h1 class="title">తెలుగులొ</h1>
-    </ion-header-bar>
-    <ion-content ng-controller="mainCtrl">
-      <div class="card">
-        <div class="item item-divider">
-          ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి
-        </div>
-        <div id="inputDiv" class="item item-text-wrap">
-          <textarea class="textArea"  type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="Enter input here"></textarea>
-        </div>
-      </div>
-      <div class="card">
-        <ul id="prefferedWordsList">
-          <li id="prefferedWordsItem" data-ng-repeat="word in PrefferedWords" >
-            <h4 id="prefferedText" ng-click="addPrefferedWord(word)">{{word.telugu}}</h4>
-          </li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="item item-divider">
-          తెలుగు లొకి మార్చబడినది
-        </div>
-        <div id="outputDiv" class="item item-text-wrap">
-          <!-- <textarea class="textArea" style="margin:10px;" ng-model="outputText" placeholder="output here"></textarea> -->
-          <textarea class="outputtextArea" ng-model="outputText" readonly>
-          </textarea>
-        </div>
-      </div>
-      <div class="card">
-        <!-- <button ng-click="copyText()" ng-disabled="ShareDisabled">copy</button> -->
-        <!-- <button ng-click="shareContent()" ng-disabled="ShareDisabled">share</button> -->
-        <a class="button button-icon icon ion-ios-copy-outline" ng-click="copyText()" ng-disabled="ShareDisabled"></a>
-        <a class="button button-icon icon ion-android-share-alt" ng-click="shareContent()" ng-disabled="ShareDisabled"></a>
-        <a class="button button-icon icon ion-social-whatsapp-outline" ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled"></a>
-        <!-- <button  ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled">whatsapp</button> -->
-      </div>
-    </ion-content>
+  <ion-pane id="mainpane">
+    <ion-nav-view></ion-nav-view>
   </ion-pane>
 </body>
 </html>

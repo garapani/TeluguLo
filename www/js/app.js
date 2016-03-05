@@ -14,7 +14,7 @@ function isTeluguchar(character) {
 }
 var cursorPosition = 0;
 
-angular.module('teluguLoApp', ['ionic','ngCordova','teluguLoApp.services','focus-if'])
+angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.services','focus-if'])
 .run(function($ionicPlatform,trieFactory) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -28,12 +28,36 @@ angular.module('teluguLoApp', ['ionic','ngCordova','teluguLoApp.services','focus
   });
 })
 
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('home', {
+      url: "/home",
+      abstract: false,
+      templateUrl: 'mainPage.html'
+    })
+    .state('help',{
+      url: "/help",
+      abstract:false,
+      templateUrl: 'help.html',
+      controller: 'helpCtrl'
+    });
+  $urlRouterProvider.otherwise('/home');
+
+})
+.controller('helpCtrl', function($scope,$state)
+{
+  $scope.backButtonClicked = function()
+  {
+    $state.go('help');
+  };
+})
 .controller('mainCtrl', function($scope,$rootScope,$cordovaSocialSharing,$cordovaClipboard) {
   $scope.focusOnInput = false;
   console.log('mainCtrl');
   var inputMethod = 0;  // RTS
   var outputMethod = 1; // unicode
   $scope.ShareDisabled = true;
+  $scope.CanShowPrefferedWords = false;
   $scope.PrefferedWords = [];
   function convertEnglishToTelugu() {
     var input = "#" + $scope.inputText + "#";
@@ -55,12 +79,14 @@ angular.module('teluguLoApp', ['ionic','ngCordova','teluguLoApp.services','focus
     var transformer = Transformer.createTransformer(inputMethod, outputMethod);
     transformer.setRTSMode(RTSTransformer.rtsEnglish);
     var prefferedWord = {english:val, telugu:transformer.convert("#" + val + "#")};
+    $scope.CanShowPrefferedWords = true;
     $scope.PrefferedWords.push(prefferedWord);
     console.log(val);
   });
 
   $rootScope.$on('clearPrefences', function(e, val) {
     $scope.PrefferedWords = [];
+    $scope.CanShowPrefferedWords = false;
     console.log(val);
   });
 
@@ -80,6 +106,7 @@ angular.module('teluguLoApp', ['ionic','ngCordova','teluguLoApp.services','focus
     convertEnglishToTelugu();
     $scope.focusOnInput = true;
     $scope.PrefferedWords = [];
+    $scope.CanShowPrefferedWords = false;
     $rootScope.$broadcast('focusOnInputText', '');
   };
 
