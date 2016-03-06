@@ -1,28 +1,30 @@
 /* Empty. Add your own CSS if you like */
 .item
 {
-  padding: 2px;
+  padding: 0px;
 }
+
 .item-text-wrap
 {
-  height: 100px;
+  height: 100%;
 }
 
 #headerBar
 {
   box-shadow: 1px 1px 5px #888888;
 }
+
 .textArea
 {
-  width:95%;
-  height: 95%;
+  width:100%;
+  height: 100%;
   resize: none;
   background-color: #e6f2ff;
 }
 
 #mainpane
 {
-    width: 100%;
+  width: 100%;
 }
 
 #content
@@ -30,13 +32,42 @@
   width: 100%;
 }
 
+.card {
+  margin: 2px;
+}
+
+#inputInnerDiv {
+  height: 90%;
+}
+
+#outputinnerDiv {
+  margin-bottom: 0px;
+  height: 90%;
+}
+
 .outputtextArea
 {
-  width:100%;
-  height: 100%;
+  width: 100%;
+  height: 85%;
+  font-size: 20px;
+  line-height: 20px;
+  position: relative;
   resize: none;
 }
 
+.inputtextArea
+{
+  width: 100%;
+  height: 85%;
+  font-size: 20px;
+  line-height: 20px;
+  position: relative;
+  resize: none;
+}
+
+#shareDiv {
+  margin: 5px;
+}
 ion-view {
   background-image: url('../img/background.jpg');
   background-size:cover;
@@ -52,13 +83,31 @@ ion-view {
 {
   background-color: rgba(255, 255, 255, .0);
 }
-#inputDiv, #outputDiv
-{
+
+#inputDiv {
   background-color: #e6f2ff;
+  height: 40%;
+  min-height: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
+
+#outputDiv {
+  background-color: #e6f2ff;
+  height: 40%;
+  min-height: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .card{
   opacity: 0.8;
 }
+
 #prefferedWordsList
 {
   margin: 0;
@@ -72,6 +121,25 @@ ion-view {
 }
 
 #prefferedText
+{
+  padding: 1px 1px 1px 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+  color:#fff;
+}
+
+#helpText {
+  padding: 1px 1px 1px 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+  color:#fff;
+}
+
+#intermText
 {
   padding: 1px 1px 1px 5px;
   margin-left: 5px;

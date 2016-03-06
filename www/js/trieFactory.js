@@ -3,14 +3,22 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
   var service = {};
   //var trie = new Trie();
   service.addWord = function(wordToAdd) {
-    var item = {word:wordToAdd,ranking:0};
+    var item = {word:wordToAdd,ranking:1};
     var temp = trieTree.add(item);
-    temp.ranking = temp.ranking + 1;
+    console.log(temp);
+  };
+
+  service.addRanking = function(wordObj) {
+    var item = {word:wordObj.english, ranking: wordObj.ranking + 1};
+    var temp = trieTree.add(item);
+    console.log(temp);
+    //temp.ranking = temp.ranking + 1;
   };
 
   service.findWord = function(searchWord) {
     console.log("searching for " + searchWord.trim());
     var nodes = trieTree.findWords(searchWord.trim());
+    console.log(nodes);
     return nodes;
   };
 

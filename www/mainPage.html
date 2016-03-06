@@ -7,37 +7,47 @@
   </ion-header-bar>
 
   <ion-content id="content" scroll="false" ng-controller="mainCtrl">
-    <div class="card">
+    <h4 id="intermText"> {{IntermText.telugu}} </h4>
+
+    <!-- <div id="inputDiv" class="card">
       <div class="item item-divider">
         <b style="color:#fff;margin-left:5px">English</b>
       </div>
-      <div id="inputDiv" class="item item-text-wrap">
-        <textarea class="textArea"  type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
+      <div id="inputInnerDiv" class="item item-text-wrap">
+        <textarea class="inputtextArea" ng-trim="false" type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
+      </div>
+    </div> -->
+
+    <div id="inputDiv" class="card">
+      <div class="item item-divider">
+        <b style="color:#fff;margin-left:5px;font-size: 20px;">English</b>
+      </div>
+      <div id="inputInnerDiv" class="item item-text-wrap">
+        <textarea class="inputtextArea" ng-trim="false" type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
       </div>
     </div>
+
     <div class="card" id="prefferredWordsCard" ng-show="CanShowPrefferedWords">
       <ul id="prefferedWordsList">
-        <li id="prefferedWordsItem" data-ng-repeat="word in PrefferedWords" >
+        <li id="prefferedWordsItem" data-ng-repeat="word in PrefferedWords | orderBy:'-ranking'" >
           <h4 id="prefferedText" ng-click="addPrefferedWord(word)">{{word.telugu}}</h4>
         </li>
       </ul>
     </div>
-    <div class="card">
+
+    <div id="outputDiv" class="card">
       <div class="item item-divider">
-        <b style="color:#fff;margin-left:5px">Telugu</b>
+        <b style="color:#fff;margin-left:5px;font-size: 20px;">Telugu</b>
       </div>
-      <div id="outputDiv" class="item item-text-wrap">
-        <textarea class="outputtextArea" ng-model="outputText" readonly placeholder="తెలుగు లొకి మార్చబడినది">
-        </textarea>
+      <div class="item item-text-wrap">
+        <textarea class="outputtextArea" ng-model="outputText" readonly placeholder="తెలుగు లొకి మార్చబడినది"></textarea>
       </div>
     </div>
-    <div class="card">
-      <!-- <button ng-click="copyText()" ng-disabled="ShareDisabled">copy</button> -->
-      <!-- <button ng-click="shareContent()" ng-disabled="ShareDisabled">share</button> -->
+
+    <div id="shareDiv" class="card">
       <a class="button button-icon icon ion-ios-copy-outline" ng-click="copyText()" ng-disabled="ShareDisabled"></a>
       <a class="button button-icon icon ion-android-share-alt" ng-click="shareContent()" ng-disabled="ShareDisabled"></a>
       <a class="button button-icon icon ion-social-whatsapp-outline" ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled"></a>
-      <!-- <button  ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled">whatsapp</button> -->
     </div>
   </ion-content>
 </ion-view>

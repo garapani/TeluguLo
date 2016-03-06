@@ -17,7 +17,7 @@ angular.module('teluguLoApp.DS', [])
 			var node = null;
 			var k = 0;
 			if(parent.children.length > 0) {
-				for(k = 0; k< parent.children.length; k++) {
+				for(k = 0; k < parent.children.length; k++) {
 					if(parent.children[k].name[i] === value.word[i]) {
 						node = parent.children[k];
 						break;
@@ -35,7 +35,8 @@ angular.module('teluguLoApp.DS', [])
 		for (var i = 0, len = value.word.length; i < len; i++) {
 			_loop(i, len);
 		}
-
+		
+		parent.ranking = value.ranking;
 		return parent;
 	};
 
@@ -71,11 +72,12 @@ angular.module('teluguLoApp.DS', [])
 		if (!top) return [];
 
 		var words = [];
-
-		top.children.forEach(function getWords(node) {
-			if(typeof node.ranking != 'undefined') words.push(node);
-			node.children.forEach(getWords);
-		});
+		if(typeof top.parent != 'undefined') {
+			top.children.forEach(function getWords(node) {
+				if(typeof node.ranking != 'undefined') words.push(node);
+				node.children.forEach(getWords);
+			});
+		}
 		return words;
 	};
 	return services;

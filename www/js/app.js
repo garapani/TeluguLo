@@ -51,7 +51,17 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
     $state.go('help');
   };
 })
-.controller('mainCtrl', function($scope,$rootScope,$cordovaSocialSharing,$cordovaClipboard) {
+
+.filter('object2Array', function() {
+  return function(input) {
+    var out = [];
+    for(var i in input) {
+      out.push(input[i]);
+    }
+    return out;
+  };
+})
+.controller('mainCtrl', function($scope,$rootScope,$cordovaSocialSharing,$cordovaClipboard,trieFactory) {
   $scope.focusOnInput = false;
   console.log('mainCtrl');
   var inputMethod = 0;  // RTS
@@ -59,6 +69,8 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
   $scope.ShareDisabled = true;
   $scope.CanShowPrefferedWords = false;
   $scope.PrefferedWords = [];
+  $scope.IntermText = "";
+
   function convertEnglishToTelugu() {
     var input = "#" + $scope.inputText + "#";
     var transformer = Transformer.createTransformer(inputMethod, outputMethod);
@@ -71,39 +83,55 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
       $scope.ShareDisabled = true;
     }
   }
+
   $scope.convert = function() {
     convertEnglishToTelugu();
+    $scope.IntermText = "";
     $rootScope.$broadcast('insert', $scope.inputText);
   };
-  $rootScope.$on('show', function(e, val) {
+
+  $rootScope.$on('intermShow', function(e, val) {
     var transformer = Transformer.createTransformer(inputMethod, outputMethod);
     transformer.setRTSMode(RTSTransformer.rtsEnglish);
-    var prefferedWord = {english:val, telugu:transformer.convert("#" + val + "#")};
+    var teluguWord = {english:val, telugu:transformer.convert("#" + val + "#")};
+    $scope.IntermText = teluguWord;
+  });
+
+  $rootScope.$on('showPreferWords', function(e, val) {
+    var transformer = Transformer.createTransformer(inputMethod, outputMethod);
+    transformer.setRTSMode(RTSTransformer.rtsEnglish);
+    var prefferedWord = {english:val.name, telugu:transformer.convert("#" + val.name +"#"),ranking:val.ranking};
+    console.log(prefferedWord);
+    // prefferedWord.english = val.name;
+    // prefferedWord.telugu = transformer.convert("#" + val.name + "#");
+    // prefferedWord.ranking = val.ranking;
     $scope.CanShowPrefferedWords = true;
     $scope.PrefferedWords.push(prefferedWord);
-    console.log(val);
   });
 
   $rootScope.$on('clearPrefences', function(e, val) {
     $scope.PrefferedWords = [];
     $scope.CanShowPrefferedWords = false;
-    console.log(val);
+  });
+  $rootScope.$on('clearIntermWord', function(e, val) {
+    $scope.IntermText = "";
   });
 
-  $scope.addPrefferedWord = function(word)
-  {
-    console.log(cursorPosition);
+  $scope.addPrefferedWord = function(word) {
     var wordStart = 0;
     var wordLength = $scope.inputText.length;
     for(var j = cursorPosition-1; j > 0; j--) {
-      console.log($scope.inputText.charAt(j));
       if(!isTeluguchar($scope.inputText.charAt(j))) {
         wordStart = j+1;
         break;
       }
     }
+    //word.ranking = word.ranking + 1;
     $scope.inputText = $scope.inputText.substring(0, wordStart) + word.english + $scope.inputText.substring(cursorPosition, wordLength);
     convertEnglishToTelugu();
+    trieFactory.addRanking(word);
+    console.log(word);
+    $scope.IntermText = "";
     $scope.focusOnInput = true;
     $scope.PrefferedWords = [];
     $scope.CanShowPrefferedWords = false;
@@ -185,25 +213,17 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
                   break;
                 }
               }
-              if(wordEnd == domElement.value.length) {
-                var nodes = trieFactory.findWord(domElement.value.substring(wordStart, wordEnd).trim());
-                console.log(nodes);
+              var wordToConvert = domElement.value.substring(wordStart, wordEnd).trim();
+              if(wordToConvert.length > 0) {
+                $rootScope.$broadcast('intermShow',wordToConvert);
+                var nodes = trieFactory.findWord(wordToConvert);
                 $rootScope.$broadcast('clearPrefences', '');
-                for(var node in nodes)
-                {
-                  $rootScope.$broadcast('show', nodes[node].name);
+                for(var node in nodes) {
+                  $rootScope.$broadcast('showPreferWords', nodes[node]);
                 }
               }
               else {
-                console.log(domElement.value.substring(wordStart, wordEnd).trim());
-                // $rootScope.$broadcast('clearPrefences', '');
-                var nodes1 = trieFactory.findWord(domElement.value.substring(wordStart, wordEnd).trim());
-                console.log(nodes1);
                 $rootScope.$broadcast('clearPrefences', '');
-                for(var node1 in nodes1)
-                {
-                  $rootScope.$broadcast('show', nodes1[node1].name);
-                }
               }
             }
           }
