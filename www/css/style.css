@@ -87,7 +87,6 @@ ion-view {
 #inputDiv {
   background-color: #e6f2ff;
   height: 40%;
-  min-height: 200px;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 5px;
@@ -97,7 +96,6 @@ ion-view {
 #outputDiv {
   background-color: #e6f2ff;
   height: 40%;
-  min-height: 200px;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 15px;

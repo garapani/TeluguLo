@@ -7,23 +7,13 @@
   </ion-header-bar>
 
   <ion-content id="content" scroll="false" ng-controller="mainCtrl">
-    <h4 id="intermText"> {{IntermText.telugu}} </h4>
-
-    <!-- <div id="inputDiv" class="card">
-      <div class="item item-divider">
-        <b style="color:#fff;margin-left:5px">English</b>
+    <h4 id="intermText" ng-show="whileWriting"> {{IntermText.telugu}} </h4>
+    <div id="inputDiv" class="card" ng-style="inputDivStyle">
+      <div class="item item-divider" ng-style="writeStyle" ng-hide="whileWriting">
+        <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">English</b>
       </div>
       <div id="inputInnerDiv" class="item item-text-wrap">
-        <textarea class="inputtextArea" ng-trim="false" type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
-      </div>
-    </div> -->
-
-    <div id="inputDiv" class="card">
-      <div class="item item-divider">
-        <b style="color:#fff;margin-left:5px;font-size: 20px;">English</b>
-      </div>
-      <div id="inputInnerDiv" class="item item-text-wrap">
-        <textarea class="inputtextArea" ng-trim="false" type="text" focus-me="focusOnInput" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
+        <textarea class="inputtextArea" ng-trim="false" type="text" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
       </div>
     </div>
 
@@ -35,9 +25,9 @@
       </ul>
     </div>
 
-    <div id="outputDiv" class="card">
-      <div class="item item-divider">
-        <b style="color:#fff;margin-left:5px;font-size: 20px;">Telugu</b>
+    <div id="outputDiv" class="card" ng-style="outputDivStyle">
+      <div class="item item-divider" ng-hide="whileWriting" ng-style="writeStyle">
+        <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">Telugu</b>
       </div>
       <div class="item item-text-wrap">
         <textarea class="outputtextArea" ng-model="outputText" readonly placeholder="తెలుగు లొకి మార్చబడినది"></textarea>

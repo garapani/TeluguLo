@@ -12,6 +12,7 @@ function isTeluguchar(character) {
   }
   return false;
 }
+
 var cursorPosition = 0;
 
 angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.services','focus-if'])
@@ -61,7 +62,7 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
     return out;
   };
 })
-.controller('mainCtrl', function($scope,$rootScope,$cordovaSocialSharing,$cordovaClipboard,trieFactory) {
+.controller('mainCtrl', function($scope,$rootScope,$cordovaSocialSharing,$cordovaClipboard,trieFactory,$cordovaKeyboard) {
   $scope.focusOnInput = false;
   console.log('mainCtrl');
   var inputMethod = 0;  // RTS
@@ -70,6 +71,19 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
   $scope.CanShowPrefferedWords = false;
   $scope.PrefferedWords = [];
   $scope.IntermText = "";
+  // $scope.CanshowOutput = cordova.plugins.Keyboard.isVisible;
+  window.addEventListener('native.keyboardshow', keyboardShowHandler);
+  function keyboardShowHandler(e) {
+    $scope.whileWriting = true;
+  }
+
+  window.addEventListener('native.keyboardhide', keyboardHideHandler);
+  function keyboardHideHandler(e) {
+    $scope.inputDivStyle = {'height':'40%'};
+    $scope.outputDivStyle = {'height':'40%'};
+    $scope.CanShowPrefferedWords = false;
+    $scope.whileWriting = false;
+  }
 
   function convertEnglishToTelugu() {
     var input = "#" + $scope.inputText + "#";
@@ -85,6 +99,15 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
   }
 
   $scope.convert = function() {
+    $scope.whileWriting = true;
+    if($scope.inputText.length > 0) {
+      $scope.CanshowOutput = true;
+      $scope.inputDivStyle = {'height':'100px'};
+      $scope.outputDivStyle = {'height':'100px'};
+    }
+    else {
+      $scope.CanshowOutput = false;
+    }
     convertEnglishToTelugu();
     $scope.IntermText = "";
     $rootScope.$broadcast('insert', $scope.inputText);
@@ -102,9 +125,6 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
     transformer.setRTSMode(RTSTransformer.rtsEnglish);
     var prefferedWord = {english:val.name, telugu:transformer.convert("#" + val.name +"#"),ranking:val.ranking};
     console.log(prefferedWord);
-    // prefferedWord.english = val.name;
-    // prefferedWord.telugu = transformer.convert("#" + val.name + "#");
-    // prefferedWord.ranking = val.ranking;
     $scope.CanShowPrefferedWords = true;
     $scope.PrefferedWords.push(prefferedWord);
   });
@@ -128,6 +148,9 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
     }
     //word.ranking = word.ranking + 1;
     $scope.inputText = $scope.inputText.substring(0, wordStart) + word.english + $scope.inputText.substring(cursorPosition, wordLength);
+    var inputTextArea = document.querySelector('.inputtextArea');
+    inputTextArea.focus();
+
     convertEnglishToTelugu();
     trieFactory.addRanking(word);
     console.log(word);
@@ -232,23 +255,28 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
         }
       });
       $rootScope.$on('focusOnInputText', function(e, val) {
-        var domElement = element[0];
-        if(typeof domElement != 'undefined' && typeof domElement.value != 'undefined') {
-          var selectionStart = domElement.value.length;
-          var selectionEnd = domElement.value.length;
-          domElement.focus();
-          if (domElement.setSelectionRange) {
-            domElement.focus();
-            domElement.setSelectionRange(selectionStart, selectionEnd);
-          }
-          else if (domElement.createTextRange) {
-            var range = domElement.createTextRange();
-            domElement.collapse(true);
-            domElement.moveEnd('character', selectionEnd);
-            domElement.moveStart('character', selectionStart);
-            domElement.select();
-          }
-        }
+        // var domElement = element[0];
+        // if(typeof domElement != 'undefined' && typeof domElement.value != 'undefined') {
+        //   var selectionStart = domElement.value.length;
+        //   var selectionEnd = domElement.value.length;
+        //   domElement.focus();
+        //   if (domElement.setSelectionRange) {
+        //     domElement.focus();
+        //     domElement.setSelectionRange(selectionStart, selectionEnd);
+        //   }
+        //   else if (domElement.createTextRange) {
+        //     var range = domElement.createTextRange();
+        //     domElement.collapse(true);
+        //     domElement.moveEnd('character', selectionEnd);
+        //     domElement.moveStart('character', selectionStart);
+        //     domElement.select();
+        //   }
+        // }
+        var inputTextArea = document.querySelector('.inputtextArea');
+        inputTextArea.focus();
+        var tempData = inputTextArea.value;
+        inputTextArea.value = "";
+        inputTextArea.value = tempData;
       });
     }
   };
