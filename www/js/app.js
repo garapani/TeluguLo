@@ -15,8 +15,9 @@ function isTeluguchar(character) {
 var cursorPosition = 0;
 
 angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.services','focus-if'])
-.run(function($ionicPlatform,trieFactory) {
+.run(function($ionicPlatform,trieFactory,$cordovaSplashscreen) {
   $ionicPlatform.ready(function() {
+    $cordovaSplashscreen.hide();
     if(window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -135,6 +136,7 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
     $scope.focusOnInput = true;
     $scope.PrefferedWords = [];
     $scope.CanShowPrefferedWords = false;
+    cordova.plugins.Keyboard.show();
     $rootScope.$broadcast('focusOnInputText', '');
   };
 
@@ -249,6 +251,7 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
             domElement.select();
           }
         }
+        cordova.plugins.Keyboard.show();
       });
     }
   };

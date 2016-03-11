@@ -38,11 +38,15 @@
 
 #inputInnerDiv {
   height: 90%;
+  background-color: #ffff66;
+  box-shadow: 2px 2px 10px #fff;
 }
 
 #outputinnerDiv {
   margin-bottom: 0px;
   height: 90%;
+  background-color: #ffff7f;
+  box-shadow: 2px 2px 10px #fff;
 }
 
 .outputtextArea
@@ -53,7 +57,11 @@
   line-height: 20px;
   position: relative;
   resize: none;
+  background-color: #ffff7f;
+  color: red;
 }
+
+textarea[readonly] {background-color:#ffff7f !important;}
 
 .inputtextArea
 {
@@ -63,15 +71,17 @@
   line-height: 20px;
   position: relative;
   resize: none;
+  background-color: #ffff66;
+  color: red;
 }
 
 #shareDiv {
   margin: 5px;
+  background-color: transparent;
 }
 ion-view {
-  background-image: url('../img/background.jpg');
+  background-image: url('../img/background.png');
   background-size:cover;
-  /*background-color: #423D50;*/
 }
 
 .item-divider
@@ -87,7 +97,6 @@ ion-view {
 #inputDiv {
   background-color: #e6f2ff;
   height: 40%;
-  min-height: 200px;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 5px;
@@ -97,7 +106,6 @@ ion-view {
 #outputDiv {
   background-color: #e6f2ff;
   height: 40%;
-  min-height: 200px;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 15px;
@@ -105,7 +113,7 @@ ion-view {
 }
 
 .card{
-  opacity: 0.8;
+  opacity: 1;
 }
 
 #prefferedWordsList
@@ -146,7 +154,7 @@ ion-view {
   margin-right: 5px;
   text-decoration: none;
   border-radius: 4px 4px 0 0;
-  color:#fff;
+  color:red;
 }
 
 .button-icon
