@@ -35,7 +35,7 @@ angular.module('teluguLoApp.DS', [])
 		for (var i = 0, len = value.word.length; i < len; i++) {
 			_loop(i, len);
 		}
-		
+
 		parent.ranking = value.ranking;
 		return parent;
 	};

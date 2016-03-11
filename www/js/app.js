@@ -32,17 +32,17 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('home', {
-      url: "/home",
-      abstract: false,
-      templateUrl: 'mainPage.html'
-    })
-    .state('help',{
-      url: "/help",
-      abstract:false,
-      templateUrl: 'help.html',
-      controller: 'helpCtrl'
-    });
+  .state('home', {
+    url: "/home",
+    abstract: false,
+    templateUrl: 'mainPage.html'
+  })
+  .state('help',{
+    url: "/help",
+    abstract:false,
+    templateUrl: 'help.html',
+    controller: 'helpCtrl'
+  });
   $urlRouterProvider.otherwise('/home');
 
 })
@@ -103,8 +103,8 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
     $scope.whileWriting = true;
     if($scope.inputText.length > 0) {
       $scope.CanshowOutput = true;
-      $scope.inputDivStyle = {'height':'100px'};
-      $scope.outputDivStyle = {'height':'100px'};
+      $scope.inputDivStyle = {'height':'20%'};
+      $scope.outputDivStyle = {'height':'20%'};
     }
     else {
       $scope.CanshowOutput = false;
@@ -257,7 +257,6 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
         }
       });
       $rootScope.$on('focusOnInputText', function(e, val) {
-<<<<<<< HEAD
         var domElement = element[0];
         if(typeof domElement != 'undefined' && typeof domElement.value != 'undefined') {
           var selectionStart = domElement.value.length;
@@ -276,30 +275,6 @@ angular.module('teluguLoApp', ['ionic','ui.router','ngCordova','teluguLoApp.serv
           }
         }
         cordova.plugins.Keyboard.show();
-=======
-        // var domElement = element[0];
-        // if(typeof domElement != 'undefined' && typeof domElement.value != 'undefined') {
-        //   var selectionStart = domElement.value.length;
-        //   var selectionEnd = domElement.value.length;
-        //   domElement.focus();
-        //   if (domElement.setSelectionRange) {
-        //     domElement.focus();
-        //     domElement.setSelectionRange(selectionStart, selectionEnd);
-        //   }
-        //   else if (domElement.createTextRange) {
-        //     var range = domElement.createTextRange();
-        //     domElement.collapse(true);
-        //     domElement.moveEnd('character', selectionEnd);
-        //     domElement.moveStart('character', selectionStart);
-        //     domElement.select();
-        //   }
-        // }
-        var inputTextArea = document.querySelector('.inputtextArea');
-        inputTextArea.focus();
-        var tempData = inputTextArea.value;
-        inputTextArea.value = "";
-        inputTextArea.value = tempData;
->>>>>>> 338c99848489614ea9b3ff427712a83b46b68d34
       });
     }
   };

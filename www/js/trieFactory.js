@@ -76,8 +76,8 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
       {word:"vamSee",ranking:1},
       {word:"venki",ranking:1},
     ];
-     serialize(JSON.stringify(data));
-     deserialize();
+    serialize(JSON.stringify(data));
+    deserialize();
   };
   return service;
 });
