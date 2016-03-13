@@ -133,7 +133,16 @@ ion-view {
   margin-right: 5px;
   text-decoration: none;
   border-radius: 4px 4px 0 0;
-  color:#fff;
+  color:#000;
+}
+
+#noFavText {
+  padding: 1px 1px 1px 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+  color:#000;
 }
 
 #intermText {
@@ -182,4 +191,8 @@ samp {
   font-size: 1.3em;
   margin-bottom: 0.5px;
   color: #066;
+}
+
+#favWordDiv {
+  height:50px;
 }

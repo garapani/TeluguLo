@@ -1,13 +1,14 @@
 <ion-view>
-  <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
-    <h1 class="title">తెలుగులొ</h1>
-    <div class="buttons">
-      <button class="button button-icon ion-help" ui-sref="help"></button>
-    </div>
-  </ion-header-bar>
+    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
+        <h1 class="title">తెలుగులొ</h1>
+        <div class="buttons">
+            <button class="button button-icon ion-ios-star-outline" ui-sref="favs"></button>
+            <button class="button button-icon ion-help" ui-sref="help"></button>
+        </div>
+    </ion-header-bar>
 
-  <ion-content id="content" scroll="true" ng-controller="mainCtrl">
-    <h5 id="intermText"> {{IntermText.telugu}} </h4>
+    <ion-content id="content" scroll="true" ng-controller="mainCtrl">
+        <h5 id="intermText"> {{IntermText.telugu}} </h4>
       <div id="inputDiv" class="card" ng-style="inputDivStyle">
         <div class="item item-divider" ng-style="writeStyle" ng-hide="whileWriting">
           <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">English</b>
@@ -38,6 +39,7 @@
         <a class="button button-icon icon ion-ios-copy-outline" ng-click="copyText()" ng-disabled="ShareDisabled"></a>
         <a class="button button-icon icon ion-android-share-alt" ng-click="shareContent()" ng-disabled="ShareDisabled"></a>
         <a class="button button-icon icon ion-social-whatsapp-outline" ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled"></a>
+        <a class="button button-icon icon ion-ios-star-outline" ng-click="addFavWord()" ng-disabled="ShareDisabled"></a>
       </div>
     </ion-content>
 </ion-view>

@@ -1,0 +1,18 @@
+<ion-view>
+    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
+        <div class="buttons">
+            <button ui-sref="home" class="button button-icon ion-android-arrow-back"></button>
+        </div>
+        <h1 class="title">Favorites</h1>
+    </ion-header-bar>
+    <ion-content>
+        <h4 id="noFavText" ng-show="noFavorites">Right now there are no favorites. To add favorite words click on star button in home page.</h4>
+        <ul>
+            <li data-ng-repeat="word in favsWords">
+                <div id="favWordDiv" class="card" ng-click="selectWord(word)" on-swipe-left="removeFavWord(word)" on-swipe-right="removeFavWord(word)">
+                    <h4 style="vertical-align:middle; margin-left:10px; margin-right:10px;">{{convertWord(word)}}</h4>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

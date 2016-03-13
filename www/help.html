@@ -1,93 +1,99 @@
 <ion-view>
-  <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
-    <div class="buttons">
-      <button ui-sref="home" class="button button-icon ion-android-arrow-back"></button>
-    </div>
-    <h1 class="title">సహాయం</h1>
-  </ion-header-bar>
-  <ion-content>
-    <h4 id="helpText">ఒక్కొ ఇంగ్లిష్ అక్షరంతొ ఒక్కొ తెలుగు అక్షరం ముడిపడింది. సాయం కొసం క్రింద పట్టిక గమనించండి.</h4>
-    <table style="margin:20px;" cellspacing="0">
-      <!-- <tr><th colspan='6'>అచ్చులు (vowels)</th></tr> -->
-      <tbody>
-        <tr>
-          <td><samp>అ</samp>a</td>
-          <td><samp>ఆ</samp>A, aa</td>
-          <td><samp>ఇ</samp>i</td>
-          <td><samp>ఈ</samp>I, ee, ii</td>
-        </tr>
-        <tr>
-          <td><samp>ఉ</samp>u</td>
-          <td><samp>ఊ</samp>U, uu, oo</td>
-          <td><samp>ఎ</samp>e</td>
-          <td><samp>ఏ</samp>E, ea</td>
-        </tr>
-        <tr>
-          <td><samp>ఐ</samp>ai</td>
-          <td><samp>ఒ</samp>o</td>
-          <td><samp>ఓ</samp>O, oe</td>
-          <td><samp>ఔ</samp>ou, au</td>
-        </tr>
-        <tr>
-          <td><samp>ఋ</samp>R</td>
-          <td><samp>ౠ</samp>Ru</td>
-          <td><samp>అం</samp>aM</td>
-          <td><samp>అః</samp>a@h</td>
-        </tr>
-        <!-- <tr><th colspan='6'>హల్లులు (consonants)</th></tr> -->
+    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
+        <div class="buttons">
+            <button ui-sref="home" class="button button-icon ion-android-arrow-back"></button>
+        </div>
+        <h1 class="title">సహాయం</h1>
+    </ion-header-bar>
+    <ion-content>
+        <h4 id="helpText">ఒక్కొ ఇంగ్లిష్ అక్షరంతొ ఒక్కొ తెలుగు అక్షరం ముడిపడింది. సాయం కొసం క్రింద పట్టిక గమనించండి.</h4>
+        <table style="margin:20px;" cellspacing="0">
+            <!-- <tr><th colspan='6'>అచ్చులు (vowels)</th></tr> -->
+            <tbody>
+                <tr>
+                    <td><samp>అ</samp>a</td>
+                    <td><samp>ఆ</samp>A, aa</td>
+                    <td><samp>ఇ</samp>i</td>
+                    <td><samp>ఈ</samp>I, ee, ii</td>
+                </tr>
+                <tr>
+                    <td><samp>ఉ</samp>u</td>
+                    <td><samp>ఊ</samp>U, uu, oo</td>
+                    <td><samp>ఎ</samp>e</td>
+                    <td><samp>ఏ</samp>E, ea</td>
+                </tr>
+                <tr>
+                    <td><samp>ఐ</samp>ai</td>
+                    <td><samp>ఒ</samp>o</td>
+                    <td><samp>ఓ</samp>O, oe</td>
+                    <td><samp>ఔ</samp>ou, au</td>
+                </tr>
+                <tr>
+                    <td><samp>ఋ</samp>R</td>
+                    <td><samp>ౠ</samp>Ru</td>
+                    <td><samp>అం</samp>aM</td>
+                    <td><samp>అః</samp>a@h</td>
+                </tr>
+                <!-- <tr><th colspan='6'>హల్లులు (consonants)</th></tr> -->
 
-        <tr id="division">
-          <td><samp>క</samp>k</td>
-          <td><samp>ఖ</samp>K, kh</td>
-          <td><samp>గ</samp>g</td>
-          <td><samp>ఘ</samp>gh, G</td>
-          <td><samp>ఙ</samp>~m</td>
-        </tr><tr>
-          <td><samp>చ</samp>c, ch</td>
-          <td><samp>ఛ</samp>C,Ch</td>
-          <td><samp>జ</samp>j</td>
-          <td><samp>ఝ</samp>J</td>
-          <td><samp>ఞ</samp>~n</td>
-        </tr><tr>
-          <td><samp>ట</samp>T</td>
-          <td><samp>ఠ</samp>Th</td>
-          <td><samp>డ</samp>D</td>
-          <td><samp>ఢ</samp>Dh</td>
-          <td><samp>ణ</samp>N</td>
-        </tr><tr>
-          <td><samp>త</samp>t</td>
-          <td><samp>థ</samp>th</td>
-          <td><samp>ద</samp>d</td>
-          <td><samp>ధ</samp>dh</td>
-          <td><samp>న</samp>n</td>
-        </tr><tr>
-          <td><samp>ప</samp>p</td>
-          <td><samp>ఫ</samp>P, f, ph</td>
-          <td><samp>బ</samp>b</td>
-          <td><samp>భ</samp>B, bh</td>
-          <td><samp>మ</samp>m</td>
-        </tr><tr>
-          <td><samp>య</samp>y</td>
-          <td><samp>ర</samp>r</td>
-          <td><samp>ల</samp>l</td>
-          <td><samp>వ</samp>v, w</td>
-          <td><samp>ళ</samp>L, lh</td>
+                <tr id="division">
+                    <td><samp>క</samp>k</td>
+                    <td><samp>ఖ</samp>K, kh</td>
+                    <td><samp>గ</samp>g</td>
+                    <td><samp>ఘ</samp>gh, G</td>
+                    <td><samp>ఙ</samp>~m</td>
+                </tr>
+                <tr>
+                    <td><samp>చ</samp>c, ch</td>
+                    <td><samp>ఛ</samp>C,Ch</td>
+                    <td><samp>జ</samp>j</td>
+                    <td><samp>ఝ</samp>J</td>
+                    <td><samp>ఞ</samp>~n</td>
+                </tr>
+                <tr>
+                    <td><samp>ట</samp>T</td>
+                    <td><samp>ఠ</samp>Th</td>
+                    <td><samp>డ</samp>D</td>
+                    <td><samp>ఢ</samp>Dh</td>
+                    <td><samp>ణ</samp>N</td>
+                </tr>
+                <tr>
+                    <td><samp>త</samp>t</td>
+                    <td><samp>థ</samp>th</td>
+                    <td><samp>ద</samp>d</td>
+                    <td><samp>ధ</samp>dh</td>
+                    <td><samp>న</samp>n</td>
+                </tr>
+                <tr>
+                    <td><samp>ప</samp>p</td>
+                    <td><samp>ఫ</samp>P, f, ph</td>
+                    <td><samp>బ</samp>b</td>
+                    <td><samp>భ</samp>B, bh</td>
+                    <td><samp>మ</samp>m</td>
+                </tr>
+                <tr>
+                    <td><samp>య</samp>y</td>
+                    <td><samp>ర</samp>r</td>
+                    <td><samp>ల</samp>l</td>
+                    <td><samp>వ</samp>v, w</td>
+                    <td><samp>ళ</samp>L, lh</td>
 
-        </tr><tr>
-          <td><samp>శ</samp>S</td>
-          <td><samp>ష</samp>sh</td>
-          <td><samp>స</samp>s</td>
-          <td><samp>హ</samp>h</td>
-          <td><samp>క్ష</samp>x, ksh</td>
-        </tr>
-        <!-- <tr><th colspan='6'>ఇతరాలు (others)</th></tr> -->
-        <tr>
-          <td><samp>ఱ</samp>~r</td>
-          <td><samp>్</samp>^</td>
-          <td><samp>ం</samp>M</td>
-          <!-- <td colspan="3">force combination<br>&amp;</td> -->
-        </tr>
-      </tbody>
-    </table>
-  </ion-content>
+                </tr>
+                <tr>
+                    <td><samp>శ</samp>S</td>
+                    <td><samp>ష</samp>sh</td>
+                    <td><samp>స</samp>s</td>
+                    <td><samp>హ</samp>h</td>
+                    <td><samp>క్ష</samp>x, ksh</td>
+                </tr>
+                <!-- <tr><th colspan='6'>ఇతరాలు (others)</th></tr> -->
+                <tr>
+                    <td><samp>ఱ</samp>~r</td>
+                    <td><samp>్</samp>^</td>
+                    <td><samp>ం</samp>M</td>
+                    <!-- <td colspan="3">force combination<br>&amp;</td> -->
+                </tr>
+            </tbody>
+        </table>
+    </ion-content>
 </ion-view>
