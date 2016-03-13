@@ -10,6 +10,7 @@ angular.module('teluguLoApp.DS', [])
 
         var root = new Node();
         services.add = function(value) {
+            console.log(value);
             var parent = root;
             var _loop = function(i, len) {
                 if (!parent.children) parent.children = [];
@@ -34,8 +35,15 @@ angular.module('teluguLoApp.DS', [])
             for (var i = 0, len = value.word.length; i < len; i++) {
                 _loop(i, len);
             }
-
-            parent.ranking = value.ranking;
+            
+            if(typeof parent.ranking != 'undefined') {
+                parent.ranking = parent.ranking + 1;
+            }
+            else {
+                parent.ranking = 1;
+            }
+            //parent.ranking = value.ranking;
+            console.log(parent);
             return parent;
         };
 
@@ -77,6 +85,22 @@ angular.module('teluguLoApp.DS', [])
                 });
             }
             return words;
+        };
+        
+        services.getAllWords = function() {
+            var top = root;
+            var tempWord = {};
+            var words = [];
+            top.children.forEach(function getWords(node) {
+                    if (typeof node.ranking != 'undefined') {
+                        tempWord = {};
+                        tempWord.word = node.name;
+                        tempWord.ranking = node.ranking;
+                        words.push(tempWord);
+                    }
+                    node.children.forEach(getWords);
+                });
+                return words;
         };
         return services;
     });

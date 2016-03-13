@@ -16,7 +16,7 @@ function isTeluguchar(character) {
 var cursorPosition = 0;
 
 angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if'])
-    .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen) {
+    .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup) {
         $ionicPlatform.ready(function() {
             $cordovaSplashscreen.hide();
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -29,8 +29,16 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             favFactory.initialization();
             trieFactory.initialization();
         });
+        $ionicPlatform.registerBackButtonAction(function (e) {
+            if ($ionicHistory.backView()) {
+                $ionicHistory.goBack();
+            } else {
+                ionic.Platform.exitApp();
+            }
+            e.preventDefault();
+            return false;
+        }, 101);
     })
-
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('home', {
@@ -58,7 +66,6 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             $state.go('help');
         };
     })
-
     .filter('object2Array', function() {
         return function(input) {
             var out = [];
@@ -184,7 +191,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             var transformer = Transformer.createTransformer(inputMethod, outputMethod);
             transformer.setRTSMode(RTSTransformer.rtsEnglish);
             var prefferedWord = { english: val.name, telugu: transformer.convert("#" + val.name + "#"), ranking: val.ranking };
-            console.log(prefferedWord);
+            //console.log(prefferedWord);
             $scope.CanShowPrefferedWords = true;
             $scope.PrefferedWords.push(prefferedWord);
         });
@@ -212,7 +219,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             inputTextArea.focus();
 
             convertEnglishToTelugu();
-            trieFactory.addRanking(word);
+            // trieFactory.addRanking(word);
             console.log(word);
             $scope.IntermText = "";
             $scope.focusOnInput = true;
@@ -221,8 +228,19 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             cordova.plugins.Keyboard.show();
             $rootScope.$broadcast('focusOnInputText', '');
         };
-
+        
+        var addWords = function () {
+            var res = $scope.inputText.split(" ");
+            if(typeof res != 'undefined' && res.length > 0) {
+                for(var i = 0; i < res.length; i++) {
+                    trieFactory.addWord(res[i]);
+                }
+            }
+        };
+        
         $scope.shareContent = function() {
+            addWords();
+            trieFactory.SaveChanges();
             $cordovaSocialSharing.share($scope.outputText, 'teluguLo', '', '') // Share via native share sheet
                 .then(function(result) {
                     console.log("success");
@@ -231,7 +249,20 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                 });
         };
 
+        $scope.copyText = function() {
+            addWords();
+            trieFactory.SaveChanges();
+            $cordovaClipboard.copy($scope.outputText)
+                .then(function() {
+                    // success
+                }, function() {
+                    // error
+                });
+        };
+        
         $scope.shareViaWhatsApp = function() {
+            addWords();
+            trieFactory.SaveChanges();
             $cordovaSocialSharing.shareViaWhatsApp($scope.outputText, '', '')
                 .then(function(result) {
                     console.log("Success");
@@ -276,15 +307,6 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             else {
                 $scope.noFavorites = false;
             }
-        };
-
-        $scope.copyText = function() {
-            $cordovaClipboard.copy($scope.outputText)
-                .then(function() {
-                    // success
-                }, function() {
-                    // error
-                });
         };
     })
 
@@ -332,7 +354,10 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                                         break;
                                     }
                                 }
+                                console.log(wordStart);
+                                console.log(wordEnd);
                                 var wordToConvert = domElement.value.substring(wordStart, wordEnd).trim();
+                                console.log(wordToConvert);
                                 if (wordToConvert.length > 0) {
                                     $rootScope.$broadcast('intermShow', wordToConvert);
                                     var nodes = trieFactory.findWord(wordToConvert);
