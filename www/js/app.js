@@ -14,7 +14,6 @@ function isTeluguchar(character) {
 }
 
 var cursorPosition = 0;
-
 angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if'])
     .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup) {
         $ionicPlatform.ready(function() {
@@ -125,6 +124,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
         $scope.IntermText = "";
         $scope.selectedWord = "";
         $scope.noFavorites = true;
+
         // $scope.CanshowOutput = cordova.plugins.Keyboard.isVisible;
         window.addEventListener('native.keyboardshow', keyboardShowHandler);
         function keyboardShowHandler(e) {
@@ -318,6 +318,17 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                 $scope.noFavorites = false;
             }
         };
+        setTimeout(showAd, 500);
+        function showAd() {
+        if (! AdMob ) { alert( 'admob plugin not ready' ); }
+        else {
+            AdMob.createBanner( {
+                adId:"ca-app-pub-6109385373902645/2671227326",
+                isTesting:true,
+                position:AdMob.AD_POSITION.BOTTOM_CENTER,
+                autoShow:true} );
+            }
+        }
     })
 
     .directive('focusMe', function($timeout) {

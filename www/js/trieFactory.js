@@ -17,7 +17,7 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
             return nodes;
         };
 
-        var serialize = function(jsonString,callback) {
+        var serialize = function(jsonString) {
             $cordovaFile.checkFile(cordova.file.dataDirectory, "wordsDB.txt")
                 .then(function(success) {
                     $cordovaFile.writeFile(cordova.file.dataDirectory, "wordsDB.txt", jsonString, true)
@@ -29,14 +29,11 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
                                 var tempNode = trieTree.add(words[word]);
                                 tempNode.ranking = words[word].ranking;
                             }
-                            callback();
                         }, function(error) {
                             console.log(error);
-                            callback();
                         });
                     }, function(error) {
                         console.log(error);
-                        callback();
                     });
                 },
                 function(error) {
@@ -51,18 +48,14 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
                                                 var tempNode = trieTree.add(words[word]);
                                                 tempNode.ranking = words[word].ranking;
                                             }
-                                            callback();
                                         }, function(error) {
                                             console.log(error);
-                                            callback();
                                         });
                                 }, function(error) {
                                     console.log(error);
-                                    callback();
                                 });
                         }, function(error) {
                             console.log(error);
-                            callback();
                         });
                 });
         };
@@ -99,10 +92,10 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
             deserialize();
         };
         
-        service.SaveChanges = function(callback) {
+        service.SaveChanges = function() {
             var words = trieTree.getAllWords();
             if(typeof words != 'undefined' && words.length > 0 ) {
-                serialize(JSON.stringify(words,callback));
+                serialize(JSON.stringify(words));
             }
         };
         return service;
