@@ -114,7 +114,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             }
         };
     })
-    .controller('mainCtrl', function($scope, $rootScope, $cordovaSocialSharing, $cordovaClipboard, trieFactory, favFactory, $cordovaKeyboard, $ionicHistory) {
+    .controller('mainCtrl', function($scope, $rootScope, $cordovaSocialSharing, $cordovaClipboard, trieFactory, favFactory, $cordovaKeyboard, $ionicHistory,$cordovaToast) {
         $scope.focusOnInput = false;
         console.log('mainCtrl');
         var inputMethod = 0;  // RTS
@@ -133,8 +133,8 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
         $scope.favsWords = favFactory.getFavoriteStrings();
         window.addEventListener('native.keyboardhide', keyboardHideHandler);
         function keyboardHideHandler(e) {
-            $scope.inputDivStyle = { 'height': '40%' };
-            $scope.outputDivStyle = { 'height': '40%' };
+            $scope.inputDivStyle = { 'height': '35%' };
+            $scope.outputDivStyle = { 'height': '35%' };
             $scope.CanShowPrefferedWords = false;
             $scope.whileWriting = false;
         }
@@ -254,6 +254,11 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             trieFactory.SaveChanges();
             $cordovaClipboard.copy($scope.outputText)
                 .then(function() {
+                    $cordovaToast.showShortBottom('copied').then(function(success) {
+                        // success
+                    }, function(error) {
+                        // error
+                    });
                     // success
                 }, function() {
                     // error
@@ -282,6 +287,11 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             }
             else {
                 $scope.noFavorites = false;
+                $cordovaToast.showShortBottom('added to favorites').then(function(success) {
+                    // success
+                }, function(error) {
+                    // error
+                });
             }
         };
 
