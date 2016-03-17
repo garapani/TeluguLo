@@ -7,7 +7,7 @@
 }
 
 #headerBar {
-  /*box-shadow: 1px 1px 5px #888888;*/
+  box-shadow: 1px 1px 5px #888888;
 }
 
 .textArea {
@@ -32,14 +32,14 @@
 #inputInnerDiv {
   height: 105%;
   background-color: #FFF;
-  /*box-shadow: 2px 2px 10px #fff;*/
+  /*box-shadow: 1px 1px 5px #888888;*/
 }
 
 #outputinnerDiv {
   margin-bottom: 0px;
   height: 105%;
   background-color:#f2f2f2;
-  /*box-shadow: 2px 2px 10px #fff;*/
+  /*box-shadow: 1px 1px 5px #888888;*/
 }
 
 .outputtextArea {
