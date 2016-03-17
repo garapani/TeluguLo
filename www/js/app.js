@@ -15,8 +15,9 @@ function isTeluguchar(character) {
 
 var cursorPosition = 0;
 angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if'])
-    .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup) {
+    .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
         $ionicPlatform.ready(function() {
+            $cordovaStatusbar.styleHex('#6b46e5');
             $cordovaSplashscreen.hide();
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
