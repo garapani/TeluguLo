@@ -1,5 +1,5 @@
 <ion-view>
-    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
+    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-royal">
         <h1 class="title">తెలుగులొ</h1>
         <div class="buttons">
             <button class="button button-icon ion-ios-star-outline" ui-sref="favs"></button>
@@ -10,24 +10,24 @@
     <ion-content id="content" scroll="true" ng-controller="mainCtrl">
         <h5 id="intermText"> {{IntermText.telugu}} </h4>
       <div id="inputDiv" class="card" ng-style="inputDivStyle">
-        <div class="item item-divider" ng-style="writeStyle" ng-hide="whileWriting">
+        <div class="item item-divider" style="border-color: #6b46e5; background-color: #886aea;" ng-style="writeStyle" ng-hide="whileWriting">
           <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">English</b>
         </div>
         <div id="inputInnerDiv" class="item item-text-wrap">
-          <textarea class="inputtextArea" ng-trim="false" type="text" autocorrect="off" autocapitalize="none" input-Text="" style="margin:10px;" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
+          <textarea class="inputtextArea" ng-trim="false" type="text" autocorrect="off" autocapitalize="none" input-Text="" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
         </div>
       </div>
 
-      <div class="card" id="prefferredWordsCard" ng-show="CanShowPrefferedWords">
+      <div id="prefferredWordsCard" ng-show="CanShowPrefferedWords">
         <ul id="prefferedWordsList">
           <li id="prefferedWordsItem" data-ng-repeat="word in PrefferedWords | orderBy:'-ranking'" >
-            <h4 id="prefferedText" ng-click="addPrefferedWord(word)">{{word.telugu}}</h4>
+            <h5 id="prefferedText" ng-click="addPrefferedWord(word)">{{word.telugu}}</h5>
           </li>
         </ul>
       </div>
 
       <div id="outputDiv" class="card" ng-style="outputDivStyle">
-        <div class="item item-divider" ng-hide="whileWriting" ng-style="writeStyle">
+        <div class="item item-divider" style="border-color: #6b46e5; background-color: #886aea;" ng-hide="whileWriting" ng-style="writeStyle">
           <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">Telugu</b>
         </div>
         <div id="outputinnerDiv" class="item item-text-wrap">
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div id="shareDiv" class="row card">
+      <div id="shareDiv" class="row card" ng-hide="whileWriting">
         <a class="col col-20 button button-icon icon ion-ios-copy-outline" ng-click="copyText()" ng-disabled="ShareDisabled"></a>
         <a class="col col-20 button button-icon icon ion-android-share-alt" ng-click="shareContent()" ng-disabled="ShareDisabled"></a>
         <a class="col col-20 button button-icon icon ion-social-whatsapp-outline" ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled"></a>

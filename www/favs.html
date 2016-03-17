@@ -1,5 +1,5 @@
 <ion-view>
-    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-positive">
+    <ion-header-bar id="headerBar" class="bar-stable bar bar-header bar-royal">
         <div class="buttons">
             <button ui-sref="home" class="button button-icon ion-android-arrow-back"></button>
         </div>
@@ -10,7 +10,7 @@
         <ul>
             <li data-ng-repeat="word in favsWords">
                 <div id="favWordDiv" class="card" ng-click="selectWord(word)" on-swipe-left="removeFavWord(word)" on-swipe-right="removeFavWord(word)">
-                    <h4 style="vertical-align:middle; margin-left:10px; margin-right:10px;">{{convertWord(word)}}</h4>
+                    <h4 style="vertical-align:middle; margin-left:10px; margin-right:10px;color:darkred">{{convertWord(word)}}</h4>
                 </div>
             </li>
         </ul>

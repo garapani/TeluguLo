@@ -129,14 +129,19 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
         window.addEventListener('native.keyboardshow', keyboardShowHandler);
         function keyboardShowHandler(e) {
             $scope.whileWriting = true;
+            AdMob.hideBanner();
         }
+        
         $scope.favsWords = favFactory.getFavoriteStrings();
         window.addEventListener('native.keyboardhide', keyboardHideHandler);
         function keyboardHideHandler(e) {
-            $scope.inputDivStyle = { 'height': '35%' };
-            $scope.outputDivStyle = { 'height': '35%' };
+            $scope.inputDivStyle = { 'height': '39%' };
+            $scope.outputDivStyle = { 'height': '39%' };
+            $scope.outputDivStyle = {'margin-top': '15px'};
+            $scope.inputDivStyle = {'margin-top': '5px'};
             $scope.CanShowPrefferedWords = false;
             $scope.whileWriting = false;
+            AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
         }
 
         $rootScope.$on('favWordClicked', function(e, val) {
@@ -171,6 +176,8 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                 $scope.CanshowOutput = true;
                 $scope.inputDivStyle = { 'height': '20%' };
                 $scope.outputDivStyle = { 'height': '20%' };
+                $scope.outputDivStyle = {'margin-top': '5px'};
+                $scope.inputDivStyle = {'margin-top': '5px'};
             }
             else {
                 $scope.CanshowOutput = false;
