@@ -42,25 +42,10 @@
   /*box-shadow: 1px 1px 5px #888888;*/
 }
 
-.outputtextArea {
-  width: 100%;
-  height: 85%;
-  margin-left:10px;
-  margin-right: 10px;
-  margin-top:5px;
-  margin-bottom: 5px;
-  font-size: 20px;
-  line-height: 20px;
-  position: relative;
-  resize: none;
-  background-color:#f2f2f2;
-  color: darkred;
-}
-
 textarea[readonly] {background-color:#f2f2f2 !important;}
 
 .inputtextArea {
-  width: 100%;
+  width: 95%;
   height: 85%;
   margin-left: 10px;
   margin-right: 10px;
@@ -71,6 +56,21 @@ textarea[readonly] {background-color:#f2f2f2 !important;}
   position: relative;
   resize: none;
   background-color: #FFF;
+  color: darkred;
+}
+
+.outputtextArea {
+  width: 95%;
+  height: 85%;
+  margin-left:10px;
+  margin-right: 10px;
+  margin-top:5px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  line-height: 20px;
+  position: relative;
+  resize: none;
+  background-color:#f2f2f2;
   color: darkred;
 }
 
@@ -98,6 +98,7 @@ ion-view {
 #inputDiv {
   background-color: #e6f2ff;
   height: 39%;
+  width: 97%;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 5px;
@@ -107,6 +108,7 @@ ion-view {
 #outputDiv {
   background-color: #e6f2ff;
   height: 39%;
+  width:97%;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 15px;
@@ -205,6 +207,9 @@ samp {
   color: darkred;
 }
 
+.customText {
+    color: darkred;
+}
 #favWordDiv {
   height:50px;
 }

@@ -14,7 +14,7 @@
           <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">English</b>
         </div>
         <div id="inputInnerDiv" class="item item-text-wrap">
-          <textarea class="inputtextArea" ng-trim="false" type="text" autocorrect="off" autocapitalize="none" input-Text="" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
+          <textarea class="inputtextArea" col="95%" ng-trim="false" type="text" autocorrect="off" autocapitalize="none" input-Text="" ng-model="inputText" ng-change="convert()" placeholder="ఇక్కడ ఇంగ్లీష్ లొ వ్రాయండి"></textarea>
         </div>
       </div>
 
@@ -31,11 +31,13 @@
           <b style="color:#fff;margin-left:5px;font-size: 20px;vertical-align: middle;">Telugu</b>
         </div>
         <div id="outputinnerDiv" class="item item-text-wrap">
-          <textarea class="outputtextArea" ng-model="outputText" readonly placeholder="తెలుగు లొకి మార్చబడినది"></textarea>
+          <!--<textarea class="outputtextArea" ng-model="outputText" readonly placeholder="తెలుగు లొకి మార్చబడినది"></textarea>-->
+          <textarea class="outputtextArea" col="95%" ng-model="outputText" placeholder="తెలుగు లొకి మార్చబడినది"></textarea>          
         </div>
       </div>
 
-      <div id="shareDiv" class="row card" ng-hide="whileWriting">
+      <!--<div id="shareDiv" class="row card" ng-hide="whileWriting">-->
+      <div id="shareDiv" class="row card">
         <a class="col col-20 button button-icon icon ion-ios-copy-outline" ng-click="copyText()" ng-disabled="ShareDisabled"></a>
         <a class="col col-20 button button-icon icon ion-android-share-alt" ng-click="shareContent()" ng-disabled="ShareDisabled"></a>
         <a class="col col-20 button button-icon icon ion-social-whatsapp-outline" ng-click="shareViaWhatsApp()" ng-disabled="ShareDisabled"></a>

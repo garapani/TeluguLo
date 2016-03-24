@@ -79,7 +79,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
 
         var inputMethod = 0;  // RTS
         var outputMethod = 1; // unicode
-
+        
         $scope.noFavorites = true;
         $scope.favsWords = favFactory.getFavoriteStrings();
         if (typeof $scope.favsWords == 'undefined' || $scope.favsWords.length <= 0) {
@@ -350,6 +350,22 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
         };
     })
 
+    .directive('isFocused', function($timeout) {
+        return {
+            scope: {
+                trigger: '&isFocused'
+            },
+            link: function(scope, element) {
+                if (scope.trigger()) {
+                    $timeout(function() {
+                        element[0].focus();
+                        element[0].click();
+                        cordova.plugins.Keyboard.show();
+                    });
+                }
+            }
+        };
+    })
     .directive('inputText', ['$rootScope', 'trieFactory', function($rootScope, trieFactory) {
         return {
             link: function(scope, element, attrs) {
@@ -389,7 +405,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                                 console.log(wordToConvert);
                                 if (wordToConvert.length > 0) {
                                     $rootScope.$broadcast('intermShow', wordToConvert);
-                                    var nodes = trieFactory.findWord(wordToConvert);
+                                    var nodes = trieFactory.findWord(wordToConvert,5);
                                     $rootScope.$broadcast('clearPrefences', '');
                                     for (var node in nodes) {
                                         $rootScope.$broadcast('showPreferWords', nodes[node]);
