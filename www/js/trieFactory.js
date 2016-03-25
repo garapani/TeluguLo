@@ -70,7 +70,7 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
                     console.log(success);
                     $cordovaFile.readAsText(cordova.file.dataDirectory, "wordsDB.txt")
                         .then(function(success) {
-                            var words = JSON.parse(success);
+                            var words = JSON.parse(success.trim());
                             for (var word in words) {
                                 if (words[word] != "") {
                                     var tempNode = trieTree.add(words[word]);
@@ -91,8 +91,31 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
                 });
         };
 
+        function copyFileIfNotPresent(successCallBack, failureCallBack) {
+            $cordovaFile.checkFile(cordova.file.dataDirectory, "wordsDB.txt")
+                .then(function (success) {
+                    successCallBack();
+                }, function (failure) {
+                    $cordovaFile.checkFile(cordova.file.applicationDirectory, "www/wordsDB.txt")
+                        .then(function (success) {
+                            $cordovaFile.copyFile(cordova.file.applicationDirectory, "www/wordsDB.txt", cordova.file.dataDirectory, "wordsDB.txt")
+                                .then(function (success) {
+                                    successCallBack();
+                                }, function (error) {
+                                    failureCallBack();
+                                });
+                        }, function (failure) {
+                            failureCallBack();
+                        });
+                });
+        }
+        
         service.initialization = function() {
-            deserialize();
+            copyFileIfNotPresent(function(){
+                deserialize();
+            }, function(){
+                console.log('words DB not found');
+            });
         };
 
         service.SaveChanges = function() {

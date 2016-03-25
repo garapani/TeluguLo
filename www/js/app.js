@@ -18,7 +18,6 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
     .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
         $ionicPlatform.ready(function() {
             $cordovaStatusbar.styleHex('#6b46e5');
-            $cordovaSplashscreen.hide();
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 cordova.plugins.Keyboard.disableScroll(true);
@@ -26,8 +25,9 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
-            favFactory.initialization();
             trieFactory.initialization();
+            $cordovaSplashscreen.hide();
+            favFactory.initialization();
         });
         $ionicPlatform.registerBackButtonAction(function (e) {
             if ($ionicHistory.backView()) {
