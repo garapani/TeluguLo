@@ -14,6 +14,7 @@ function isTeluguchar(character) {
 }
 
 var cursorPosition = 0;
+var w;
 angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if'])
     .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
         $ionicPlatform.ready(function() {
@@ -26,8 +27,29 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                 StatusBar.styleDefault();
             }
             trieFactory.initialization();
-            $cordovaSplashscreen.hide();
             favFactory.initialization();
+            $cordovaSplashscreen.hide();
+            
+            // function longJob() {
+            //     trieFactory.initialization();
+            //     favFactory.initialization();
+            //     return 0;
+            // }
+            // var myWorker = Webworker.create(longJob);
+            // myWorker.run().then(function(result){
+            //     console.log('successfully run the webWorker');
+            // });
+            
+            // if(typeof(Worker) !== "undefined") {
+            //     if(typeof(w) == "undefined") {
+            //         w = new Worker("js/delayJobs.js");
+            //     }
+            //     w.onmessage = function(event) {
+            //         console.log(event.data);
+            //     };
+            // } else {
+            //     console.log("Sorry! No Web Worker support.");
+            // }
         });
         $ionicPlatform.registerBackButtonAction(function (e) {
             if ($ionicHistory.backView()) {
@@ -151,7 +173,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
         });
 
         $scope.removeWord = function(word) {
-            console.log(word);
+            // console.log(word);
             var index = $scope.favsWords.indexOf(word);
             if (index > -1) {
                 $scope.favsWords.splice(index, 1);
@@ -228,7 +250,7 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
 
             convertEnglishToTelugu();
             // trieFactory.addRanking(word);
-            console.log(word);
+            // console.log(word);
             $scope.IntermText = "";
             $scope.focusOnInput = true;
             $scope.PrefferedWords = [];
@@ -279,10 +301,10 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             $cordovaSocialSharing.shareViaWhatsApp($scope.outputText, '', '')
                 .then(function(result) {
                     console.log("Success");
-                    console.log(result);
+                    // console.log(result);
                 }, function(err) {
                     console.log("failure");
-                    console.log(err);
+                    // console.log(err);
                     // An error occurred. Show a message to the user
                 });
         };
@@ -394,15 +416,15 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
                                 }
                                 for (var j = startPos; j < domElement.value.length; j++) {
                                     if (!isTeluguchar(domElement.value.charAt(j))) {
-                                        console.log(domElement.value.charAt(j));
+                                        // console.log(domElement.value.charAt(j));
                                         wordEnd = j;
                                         break;
                                     }
                                 }
-                                console.log(wordStart);
-                                console.log(wordEnd);
+                                // console.log(wordStart);
+                                // console.log(wordEnd);
                                 var wordToConvert = domElement.value.substring(wordStart, wordEnd).trim();
-                                console.log(wordToConvert);
+                                // console.log(wordToConvert);
                                 if (wordToConvert.length > 0) {
                                     $rootScope.$broadcast('intermShow', wordToConvert);
                                     var nodes = trieFactory.findWord(wordToConvert,5);

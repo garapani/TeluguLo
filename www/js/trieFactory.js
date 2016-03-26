@@ -63,20 +63,29 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
                 });
         };
 
+function getTime()
+{
+    var d = new Date();
+    return d.getHours() + d.getMinutes() + d.getSeconds() + d.getMilliseconds();
+}
         var divider = '#';
         var deserialize = function() {
             $cordovaFile.checkFile(cordova.file.dataDirectory, "wordsDB.txt")
                 .then(function(success) {
-                    console.log(success);
+                    // console.log(success);
+                    // console.log("before reading" + getTime());
                     $cordovaFile.readAsText(cordova.file.dataDirectory, "wordsDB.txt")
                         .then(function(success) {
+                            // console.log("after reading" + getTime());
                             var words = JSON.parse(success.trim());
+                            // console.log("after parsing" + getTime());
                             for (var word in words) {
                                 if (words[word] != "") {
                                     var tempNode = trieTree.add(words[word]);
                                     tempNode.ranking = words[word].ranking;
                                 }
                             }
+                            // console.log("after adding to tree" + getTime());
                         }, function(error) {
                             console.log(error);
                         });
@@ -84,7 +93,7 @@ angular.module('teluguLoApp.services', ['teluguLoApp.DS'])
                     console.log(error);
                     $cordovaFile.createFile(cordova.file.dataDirectory, "wordsDB.txt", false)
                         .then(function(success1) {
-                            console.log(success1);
+                            // console.log(success1);
                         }, function(error1) {
                             console.log(error1);
                         });

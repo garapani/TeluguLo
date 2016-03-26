@@ -12,7 +12,7 @@ angular.module('teluguLoApp.favServices', [])
                 .then(function(success) {
                     $cordovaFile.writeFile(cordova.file.dataDirectory, "favs.txt", jsonString, true)
                         .then(function(success) {
-                            console.log("write success");
+                            // console.log("write success");
                         }, function(error) {
                             console.log(error);
                         });
@@ -22,7 +22,7 @@ angular.module('teluguLoApp.favServices', [])
                         .then(function(success) {
                             $cordovaFile.writeFile(cordova.file.dataDirectory, "favs.txt", jsonString, true)
                                 .then(function(success) {
-                                    console.log("write success");
+                                    // console.log("write success");
                                 }, function(error) {
                                     console.log(error);
                                 });
@@ -35,7 +35,7 @@ angular.module('teluguLoApp.favServices', [])
         var deserialize = function() {
             $cordovaFile.checkFile(cordova.file.dataDirectory, "favs.txt")
                 .then(function(success) {
-                    console.log(success);
+                    // console.log(success);
                     $cordovaFile.readAsText(cordova.file.dataDirectory, "favs.txt")
                         .then(function(success) {
                             var words = JSON.parse(success);
@@ -65,7 +65,7 @@ angular.module('teluguLoApp.favServices', [])
                 var foundWords = favWords.find(function(child) {
                     return child.english === item.english;
                 });
-                console.log(foundWords);
+                // console.log(foundWords);
                 if (typeof foundWords == 'undefined' || foundWords.length <= 0) {
                     favWords.push(item);
                     serialize(JSON.stringify(favWords));

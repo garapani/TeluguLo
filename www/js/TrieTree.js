@@ -10,7 +10,7 @@ angular.module('teluguLoApp.DS', [])
 
         var root = new Node();
         services.add = function(value) {
-            console.log(value);
+            // console.log(value);
             var parent = root;
             var _loop = function(i, len) {
                 if (!parent.children) parent.children = [];
@@ -43,7 +43,7 @@ angular.module('teluguLoApp.DS', [])
                 parent.ranking = 1;
             }
             //parent.ranking = value.ranking;
-            console.log(parent);
+            // console.log(parent);
             return parent;
         };
 
