@@ -16,7 +16,8 @@ function isTeluguchar(character) {
 var cursorPosition = 0;
 var w;
 var teluguLoApp = angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if']);
-teluguLoApp.run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
+teluguLoApp.run(function($ionicPlatform,$cordovaGoogleAnalytics, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
+        //  WorkerService.setAngularUrl('/libs/angular/angular.min.js');
         $ionicPlatform.ready(function() {
             $cordovaStatusbar.styleHex('#6b46e5');
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -26,6 +27,19 @@ teluguLoApp.run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplash
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            // webWorkerService.doWork();
+            // WorkerService.setAngularUrl("js/worker.js");
+            //  var workerPromise = WorkerService.createAngularWorker(['input', 'output','trieFactory','favFactory', function (input, output,trieFactory,favFactory) {
+            //      console.log(input);
+            //     trieFactory.initialization();
+            //     favFactory.initialization();
+            // }]);
+            // workerPromise.then(function success(angularWorker) {
+            //     console.log(angularWorker);
+            //     //The input must be serializable
+            //     return angularWorker.run("venkat");
+            // });
+    
             // var myWorker = WebworkerProvider.create(init);
             // myWorker.run($scope.value).then(function(result) {
             //     //alert("Answer: " + result);
@@ -36,8 +50,20 @@ teluguLoApp.run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplash
             //     favFactory.initialization();    
             // }]);
             trieFactory.initialization();
-            favFactory.initialization();
+            favFactory.initialization(); 
             $cordovaSplashscreen.hide();
+            if(window.Connection) {
+                if(navigator.connection.type != Connection.NONE) {
+                    // $cordovaGoogleAnalytics.debugMode();
+                    $cordovaGoogleAnalytics.startTrackerWithId('UA-29779172-15');
+                }
+                else {
+                    console.log(navigator.connection.type);
+                }
+            }
+            else {
+                console.log("window.Connection is null");
+            }
         });
         
         $ionicPlatform.registerBackButtonAction(function (e) {
@@ -152,7 +178,17 @@ teluguLoApp.run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplash
             $scope.inputDivStyle = {'margin-top': '5px'};
             $scope.CanShowPrefferedWords = false;
             $scope.whileWriting = false;
-            AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
+            if(window.Connection) {
+                if(navigator.connection.type != Connection.NONE) {
+                    AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
+                }
+                else {
+                    console.log(navigator.connection.type);
+                }
+            }
+            else{
+                console.log("window.Connection is null");
+            }
         }
 
         $rootScope.$on('favWordClicked', function(e, val) {
@@ -338,18 +374,27 @@ teluguLoApp.run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplash
         };
         setTimeout(showAd, 500);
         function showAd() {
-        if (! AdMob ) { alert( 'admob plugin not ready' ); }
-        else {
-            AdMob.createBanner( {
-                adId:"ca-app-pub-6109385373902645/2671227326",
-                isTesting:true,
-                position:AdMob.AD_POSITION.BOTTOM_CENTER,
-                autoShow:true} );
+            if(window.Connection) {
+                if(navigator.connection.type != Connection.NONE) {
+                    if (! AdMob ) { alert( 'admob plugin not ready' ); }
+                    else {
+                        AdMob.createBanner( {
+                            adId:"ca-app-pub-6109385373902645/2671227326",
+                            isTesting:false,
+                            position:AdMob.AD_POSITION.BOTTOM_CENTER,
+                            autoShow:true} );
+                        }
+                    }
+                    else {
+                        console.log(navigator.connection.type);
+                    }
+                }
+                else {
+                    console.log("window.Connection is empty");
+                }
             }
-        }
-    })
-
-    .directive('focusMe', function($timeout) {
+        })
+        .directive('focusMe', function($timeout) {
         return {
             link: function(scope, element, attrs) {
 
