@@ -15,8 +15,8 @@ function isTeluguchar(character) {
 
 var cursorPosition = 0;
 var w;
-angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if'])
-    .run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
+var teluguLoApp = angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.services', 'teluguLoApp.favServices', 'focus-if']);
+teluguLoApp.run(function($ionicPlatform, trieFactory, favFactory, $cordovaSplashscreen,$ionicHistory,$ionicPopup,$cordovaStatusbar) {
         $ionicPlatform.ready(function() {
             $cordovaStatusbar.styleHex('#6b46e5');
             if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -26,31 +26,20 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            // var myWorker = WebworkerProvider.create(init);
+            // myWorker.run($scope.value).then(function(result) {
+            //     //alert("Answer: " + result);
+            // });
+            
+            // var workerPromise = WorkerService.createAngularWorker(['input', 'output', '$http', function (input, output, $http) {
+            //     trieFactory.initialization();
+            //     favFactory.initialization();    
+            // }]);
             trieFactory.initialization();
             favFactory.initialization();
             $cordovaSplashscreen.hide();
-            
-            // function longJob() {
-            //     trieFactory.initialization();
-            //     favFactory.initialization();
-            //     return 0;
-            // }
-            // var myWorker = Webworker.create(longJob);
-            // myWorker.run().then(function(result){
-            //     console.log('successfully run the webWorker');
-            // });
-            
-            // if(typeof(Worker) !== "undefined") {
-            //     if(typeof(w) == "undefined") {
-            //         w = new Worker("js/delayJobs.js");
-            //     }
-            //     w.onmessage = function(event) {
-            //         console.log(event.data);
-            //     };
-            // } else {
-            //     console.log("Sorry! No Web Worker support.");
-            // }
         });
+        
         $ionicPlatform.registerBackButtonAction(function (e) {
             if ($ionicHistory.backView()) {
                 $ionicHistory.goBack();
@@ -147,7 +136,6 @@ angular.module('teluguLoApp', ['ionic', 'ui.router', 'ngCordova', 'teluguLoApp.s
         $scope.IntermText = "";
         $scope.selectedWord = "";
         $scope.noFavorites = true;
-
         // $scope.CanshowOutput = cordova.plugins.Keyboard.isVisible;
         window.addEventListener('native.keyboardshow', keyboardShowHandler);
         function keyboardShowHandler(e) {
